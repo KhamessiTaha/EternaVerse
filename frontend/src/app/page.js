@@ -1,8 +1,10 @@
 export default function HomePage() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-      <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Welcome to EternaVerse</h1>
-      <p style={{ fontSize: '1.25rem', color: '#bbb' }}>Create, explore, and simulate the universe.</p>
+    <div className="text-center">
+      <h1 className="text-4xl font-bold mb-4">Welcome to Universe Sandbox</h1>
+      <p className="text-lg text-gray-400">
+        Simulate, explore, and create your own universes.
+      </p>
     </div>
   );
 }
