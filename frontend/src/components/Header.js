@@ -6,7 +6,7 @@ export default function Header() {
           <nav>
             <ul className="hidden md:flex space-x-4">
               <li>
-                <a href="/" className="hover:text-gray-400">Home</a>
+                <a href="/home" className="hover:text-gray-400">Home</a>
               </li>
               <li>
                 <a href="/about" className="hover:text-gray-400">About</a>
