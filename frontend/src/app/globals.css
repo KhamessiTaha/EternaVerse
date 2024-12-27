@@ -1,26 +1,98 @@
+/* Import Tailwind CSS layers */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Apply a simple reset for better styling control */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Custom Global Styles */
+:root {
+  --primary-color: #3b82f6; /* Tailwind blue-500 */
+  --secondary-color: #1e293b; /* Tailwind slate-800 */
+  --text-color: #ffffff; /* White */
+  --background-color: #0f172a; /* Tailwind slate-900 */
 }
 
 html, body {
   height: 100%;
-  font-family: 'Inter', sans-serif; /* Optional font */
-  background: #0d1117; /* A nice dark theme background */
-  color: #ffffff; /* White text for contrast */
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  @apply bg-slate-900 text-white font-sans antialiased;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 a {
-  color: inherit;
+  @apply text-blue-500 hover:text-blue-400 transition-colors;
   text-decoration: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  margin: 0;
+  @apply font-bold text-white;
+}
+
+h1 {
+  @apply text-4xl md:text-5xl;
+}
+
+h2 {
+  @apply text-3xl md:text-4xl;
+}
+
+h3 {
+  @apply text-2xl md:text-3xl;
+}
+
+p {
+  @apply text-base md:text-lg text-gray-300;
+}
+
+ul {
+  @apply list-disc pl-5;
+}
+
+button {
+  @apply px-4 py-2 rounded bg-blue-500 text-white font-medium hover:bg-blue-600 transition-all;
+}
+
+input, textarea {
+  @apply w-full px-4 py-2 border border-slate-600 rounded bg-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+/* Utility Classes for Custom Components */
+.card {
+  @apply p-6 rounded-lg shadow-lg bg-slate-800 text-gray-300;
+}
+
+.card:hover {
+  @apply bg-slate-700;
+}
+
+.navbar {
+  @apply flex items-center justify-between px-6 py-4 bg-slate-800 text-gray-300 shadow-md;
+}
+
+.footer {
+  @apply text-center py-6 bg-slate-800 text-gray-400;
+}
+
+.grid-container {
+  @apply grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
+}
+
+.hero {
+  @apply text-center py-20 bg-gradient-to-r from-blue-800 to-slate-900;
+}
+
+.hero h1 {
+  @apply text-6xl font-extrabold;
+}
+
+.hero p {
+  @apply text-lg text-gray-400 mt-4;
+}
+
+.hero button {
+  @apply mt-6 bg-blue-500 hover:bg-blue-600 text-white font-bold px-6 py-3 rounded-lg transition-all;
 }
