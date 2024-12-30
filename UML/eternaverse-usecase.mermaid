@@ -1,0 +1,32 @@
+stateDiagram-v2
+    [*] --> Login
+    Login --> Dashboard
+    
+    state Dashboard {
+        [*] --> ViewUniverses
+        ViewUniverses --> CreateUniverse
+        ViewUniverses --> LoadUniverse
+        
+        state CreateUniverse {
+            [*] --> ConfigureConstants
+            ConfigureConstants --> TriggerBigBang
+            TriggerBigBang --> SimulationView
+        }
+        
+        state LoadUniverse {
+            [*] --> SimulationView
+        }
+        
+        state SimulationView {
+            [*] --> ManageTime
+            ManageTime --> HandleAnomalies
+            ManageTime --> AdjustParameters
+            ManageTime --> ExploreUniverse
+            
+            state ExploreUniverse {
+                [*] --> ZoomGalaxy
+                ZoomGalaxy --> ViewStarSystem
+                ViewStarSystem --> InspectPlanet
+            }
+        }
+    }

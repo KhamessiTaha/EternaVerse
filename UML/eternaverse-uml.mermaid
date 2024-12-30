@@ -1,0 +1,90 @@
+classDiagram
+    class User {
+        -UUID id
+        -String email
+        -String password
+        -String username
+        -DateTime createdAt
+        +createUniverse()
+        +saveUniverse()
+        +loadUniverse()
+        +updateProfile()
+    }
+
+    class Universe {
+        -UUID id
+        -UUID userId
+        -UniverseConstants constants
+        -BigInt currentAge
+        -UniverseState state
+        -DateTime createdAt
+        +simulate(timeStep)
+        +adjustConstants()
+        +handleAnomaly()
+        +generateAnalytics()
+    }
+
+    class UniverseConstants {
+        -Float gravitationalConstant
+        -Float speedOfLight
+        -Float darkEnergyRatio
+        -Float matterAntimatterRatio
+        +validate()
+        +calculate()
+    }
+
+    class CelestialObject {
+        -UUID id
+        -UUID universeId
+        -Vector3 position
+        -ObjectType type
+        -Properties properties
+        +update()
+        +calculateGravity()
+        +interact()
+    }
+
+    class Galaxy extends CelestialObject {
+        -Float rotationSpeed
+        -Float mass
+        -StarSystem[] starSystems
+        +generateStars()
+        +updateRotation()
+    }
+
+    class StarSystem extends CelestialObject {
+        -Star star
+        -Planet[] planets
+        -Float habitabilityIndex
+        +calculateHabitability()
+        +generatePlanets()
+    }
+
+    class Anomaly {
+        -UUID id
+        -UUID universeId
+        -AnomalyType type
+        -Float severity
+        -Vector3 location
+        +applyEffects()
+        +resolve()
+    }
+
+    class SimulationService {
+        +processTimeStep()
+        +calculatePhysics()
+        +handleCollisions()
+        +generateAnomalies()
+    }
+
+    class MLPredictionService {
+        +predictAnomalies()
+        +calculateHabitability()
+        +predictEvolution()
+    }
+
+    User "1" -- "*" Universe
+    Universe "1" -- "1" UniverseConstants
+    Universe "1" -- "*" CelestialObject
+    Universe "1" -- "*" Anomaly
+    Galaxy "1" -- "*" StarSystem
