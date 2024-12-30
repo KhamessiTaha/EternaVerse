@@ -1,0 +1,34 @@
+sequenceDiagram
+    participant U as User
+    participant F as Frontend
+    participant B as Backend
+    participant DB as Database
+    participant ML as ML Service
+    
+    U->>F: Create New Universe
+    F->>B: POST /universe/create
+    B->>DB: Insert Universe Record
+    B->>ML: Initialize ML Models
+    ML-->>B: Models Ready
+    B-->>F: Universe Created
+    F-->>U: Show Universe View
+    
+    U->>F: Adjust Constants
+    F->>B: PATCH /universe/constants
+    B->>ML: Validate Changes
+    ML-->>B: Validation Result
+    B->>DB: Update Constants
+    DB-->>B: Update Complete
+    B-->>F: Constants Updated
+    F-->>U: Show Updated State
+    
+    U->>F: Start Simulation
+    F->>B: POST /universe/simulate
+    B->>ML: Process Time Step
+    ML->>ML: Calculate Physics
+    ML->>ML: Generate Anomalies
+    ML-->>B: Simulation Results
+    B->>DB: Save New State
+    DB-->>B: Save Complete
+    B-->>F: Send Updated State
+    F-->>U: Render New State

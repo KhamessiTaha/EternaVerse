@@ -1,0 +1,37 @@
+graph TB
+    subgraph Frontend
+        UI[User Interface]
+        THR[Three.js Renderer]
+        SM[State Management]
+        WS[WebSocket Client]
+    end
+
+    subgraph Backend
+        API[API Gateway]
+        SS[Simulation Service]
+        US[Universe Service]
+        AS[Authentication Service]
+        WH[WebSocket Handler]
+    end
+
+    subgraph Database
+        PG[PostgreSQL]
+        RD[Redis Cache]
+    end
+
+    subgraph ML
+        TF[TensorFlow.js]
+        MP[ML Predictions]
+    end
+
+    UI --> THR
+    UI --> SM
+    SM --> WS
+    WS --> WH
+    API --> SS
+    API --> US
+    API --> AS
+    SS --> MP
+    US --> PG
+    SS --> RD
+    MP --> TF
