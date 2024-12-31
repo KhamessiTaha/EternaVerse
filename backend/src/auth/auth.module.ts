@@ -5,11 +5,9 @@ import { AuthService } from './auth.service';
 import { UserModule } from '../user/user.module';
 import { JwtStrategy } from './jwt.strategy';
 import { AuthService } from './auth.service';
-import { JwtStrategyService } from './jwt-strategy/jwt-strategy.service';
-import { AuthController } from './auth.controller';
 
 @Module({
-  imports: [
+  imports: [ 
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'yourSecretKey', // Use an .env variable for security
@@ -17,8 +15,7 @@ import { AuthController } from './auth.controller';
     }),
     UserModule,
   ],
-  providers: [AuthService, JwtStrategy, JwtStrategyService],
+  providers: [AuthService, JwtStrategy],
   exports: [AuthService],
-  controllers: [AuthController],
 })
 export class AuthModule {}
