@@ -6,6 +6,8 @@ import { Universe } from './entities/universe.entity';
 import { CelestialObject } from './entities/celestial-object.entity';
 import { Anomaly } from './entities/anomaly.entity';
 import { UserService } from './user/user.service';
+import { UserController } from './user/user.controller';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -21,7 +23,9 @@ import { UserService } from './user/user.service';
       synchronize: true, // Set to false in production
     }),
     TypeOrmModule.forFeature([User, Universe, CelestialObject, Anomaly]),
+    AuthModule,
   ],
   providers: [UserService],
+  controllers: [UserController],
 })
 export class AppModule {}
