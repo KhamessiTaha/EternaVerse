@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller'; 
 import { UsersModule } from './users/users.module'; 
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { UsersModule } from './users/users.module';
       autoLoadEntities: true, // Automatically loads entities
       synchronize: true, // Set to false in production
     }),
-    UsersModule, // Register the UsersModule
+    UsersModule,
+    AuthModule, // Register the UsersModule
   ],
   controllers: [AppController], // Register the AppController
   providers: [], // Add any global providers here if needed
