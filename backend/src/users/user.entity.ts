@@ -1,19 +1,22 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 
-@Entity('users') // 'users' is the name of the table
+@Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
-
-  @Column()
-  username: string;
 
   @Column()
   password: string;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ default: 'defaultUser' })
+  username: string;
+
+  @CreateDateColumn()
   createdAt: Date;
+
+  @Column({ default: 'user' }) // New field for roles
+  role: string; // Possible values: 'user', 'admin'
 }
