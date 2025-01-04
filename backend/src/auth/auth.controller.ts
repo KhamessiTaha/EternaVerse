@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { Roles } from './roles.decorator';
+import { RolesGuard } from './guards/roles.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -25,10 +26,10 @@ export class AuthController {
     return req.user; // Returns the user payload from the JWT token
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get('admin')
-  @UseGuards(JwtAuthGuard)
-  @Roles('admin') // Only admins can access this route
+  @Roles('admin')
   adminOnly() {
     return { message: 'Welcome, admin!' };
-  }
+}
 }
