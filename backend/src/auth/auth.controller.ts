@@ -25,8 +25,8 @@ export class AuthController {
     return req.user; // Returns the user payload from the JWT token
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('admin')
+  @UseGuards(JwtAuthGuard)
   @Roles('admin') // Only admins can access this route
   adminOnly() {
     return { message: 'Welcome, admin!' };
