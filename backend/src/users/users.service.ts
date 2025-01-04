@@ -28,8 +28,8 @@ export class UsersService {
   }
 
   // Create a new user
-  async create(email: string, username: string, password: string): Promise<User> {
-    const newUser = this.userRepository.create({ email, username, password });
+  async create(email: string, username: string, password: string, role: string = 'user'): Promise<User> {
+    const newUser = this.userRepository.create({ email, username, password, role });
     return this.userRepository.save(newUser);
   }
 
