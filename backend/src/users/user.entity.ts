@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  OneToMany,
+} from 'typeorm';
+import { Universe } from 'src/universes/universe.entity';
 
 @Entity()
 export class User {
@@ -19,4 +26,7 @@ export class User {
 
   @Column({ default: 'user' }) // New field for roles
   role: string; // Possible values: 'user', 'admin'
+
+  @OneToMany(() => Universe, (universe) => universe.createdBy)
+  universes: Universe[]; // A user can create multiple universes
 }
