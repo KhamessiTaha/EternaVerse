@@ -91,13 +91,24 @@ export class UniversesService {
     return this.universeRepository.save(universe);
   }
 
-  async remove(id: string, userId: string): Promise<void> {
-    const universe = await this.universeRepository.findOne({ where: { id } });
-
-    if (universe.createdBy.id !== userId) {
-      throw new Error('Unauthorized');
+  async delete(userId: string, universeId: string): Promise<{ message: string }> {
+    // Find the universe
+    const universe = await this.universeRepository.findOne({
+      where: { id: universeId },
+      relations: ['createdBy'],
+    });
+  
+    if (!universe) {
+      throw new NotFoundException('Universe not found');
     }
-
+  
+    // Ensure the logged-in user is the creator
+    if (universe.createdBy.id !== userId) {
+      throw new ForbiddenException('You do not have permission to delete this universe');
+    }
+  
+    // Delete the universe
     await this.universeRepository.remove(universe);
+    return { message: 'Universe deleted successfully' };
   }
 }
