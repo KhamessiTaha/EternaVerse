@@ -2,15 +2,17 @@ import {
   Controller,
   Post,
   Get,
-  Patch,
+  Put,
   Delete,
   Param,
   Body,
   UseGuards,
   Request,
+  Query,
 } from '@nestjs/common';
 import { UniversesService } from './universes.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { UpdateUniverseDto } from './dto/update-universe.dto';
 
 @Controller('universes')
 export class UniversesController {
@@ -24,8 +26,13 @@ export class UniversesController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async findAll(@Request() req) {
-    return this.universesService.findByUser(req.user.id); // Fetch universes by user ID
+  async findAll(
+    @Request() req,
+    @Query('page') page: number = 1, // Default to page 1
+    @Query('limit') limit: number = 10, // Default to 10 universes per page
+    @Query('name') name?: string, // Optional filtering by name
+  ) {
+    return this.universesService.findAll(req.user.id, { page, limit, name });
   }
 
   @UseGuards(JwtAuthGuard)
@@ -35,13 +42,13 @@ export class UniversesController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch(':id')
+  @Put(':id')
   async update(
+    @Request() req,
     @Param('id') id: string,
-    @Body() body: any,
-    @Request() req: any,
+    @Body() updateUniverseDto: UpdateUniverseDto,
   ) {
-    return this.universesService.update(id, body, req.user.id);
+    return this.universesService.update(req.user.id, id, updateUniverseDto);
   }
 
   @UseGuards(JwtAuthGuard)
