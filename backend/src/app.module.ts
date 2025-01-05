@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller'; 
 import { UsersModule } from './users/users.module'; 
 import { AuthModule } from './auth/auth.module';
+import { UniversesModule } from './universes/universes.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { AuthModule } from './auth/auth.module';
       synchronize: true, // Set to false in production
     }),
     UsersModule,
-    AuthModule, // Register the UsersModule
+    AuthModule,
+    UniversesModule, // Register the UsersModule
   ],
   controllers: [AppController], // Register the AppController
   providers: [], // Add any global providers here if needed
