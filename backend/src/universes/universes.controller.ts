@@ -53,7 +53,7 @@ export class UniversesController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async remove(@Param('id') id: string, @Request() req: any) {
-    return this.universesService.remove(id, req.user.id);
+  async delete(@Request() req, @Param('id') id: string) {
+    return this.universesService.delete(req.user.id, id);
   }
 }
