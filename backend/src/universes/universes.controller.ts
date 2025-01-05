@@ -22,14 +22,16 @@ export class UniversesController {
     return this.universesService.create(body, req.user.id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
-  async findAll() {
-    return this.universesService.findAll();
+  async findAll(@Request() req) {
+    return this.universesService.findByUser(req.user.id); // Fetch universes by user ID
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return this.universesService.findOne(id);
+  async findOne(@Param('id') id: string, @Request() req) {
+    return this.universesService.findByIdAndUser(id, req.user.id); // Fetch a specific universe by ID and user ID
   }
 
   @UseGuards(JwtAuthGuard)

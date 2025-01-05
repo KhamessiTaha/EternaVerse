@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable , NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Universe } from './universe.entity';
@@ -16,6 +16,26 @@ export class UniversesService {
       createdBy: { id: userId }, // Link the user
     });
     return this.universeRepository.save(newUniverse);
+  }
+  
+  async findByUser(userId: string): Promise<Universe[]> {
+    return this.universeRepository.find({
+      where: { createdBy: { id: userId } },
+      relations: ['createdBy'],
+    });
+  }
+
+  async findByIdAndUser(universeId: string, userId: string): Promise<Universe> {
+    const universe = await this.universeRepository.findOne({
+      where: { id: universeId, createdBy: { id: userId } },
+      relations: ['createdBy'], // Include user info if needed
+    });
+  
+    if (!universe) {
+      throw new NotFoundException('Universe not found or not accessible');
+    }
+  
+    return universe;
   }
 
   async findAll(): Promise<Universe[]> {
