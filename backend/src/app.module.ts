@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { UsersModule } from './users/users.module'; 
 import { AuthModule } from './auth/auth.module';
 import { UniversesModule } from './universes/universes.module';
+import { UniverseGateway } from './websockets/universe/universe.gateway';
 
 @Module({
   imports: [
@@ -26,7 +27,7 @@ import { UniversesModule } from './universes/universes.module';
     UniversesModule, // Register the UsersModule
   ],
   controllers: [AppController], // Register the AppController
-  providers: [], // Add any global providers here if needed
+  providers: [UniverseGateway], // Add any global providers here if needed
 })
 export class AppModule {}
 
